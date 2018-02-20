@@ -1093,7 +1093,7 @@ Address: %4
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The address to send the payment to  (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <source>The address to send the payment to  (e.g. Ger4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1117,7 +1117,7 @@ Address: %4
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enter a Bitcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <source>Enter a Bitcoin address (e.g. Ger4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1136,7 +1136,7 @@ Address: %4
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The address to sign the message with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <source>The address to sign the message with (e.g. Ger4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1184,7 +1184,7 @@ Address: %4
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The address the message was signed with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <source>The address the message was signed with (e.g. Ger4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1196,7 +1196,7 @@ Address: %4
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enter a Bitcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <source>Enter a Bitcoin address (e.g. Ger4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1705,7 +1705,7 @@ Address: %4
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Listen for connections on &lt;port&gt; (default: 8333 or testnet: 18333)</source>
+        <source>Listen for connections on &lt;port&gt; (default: 24542 or testnet: 34542)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1833,7 +1833,7 @@ Address: %4
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 8332)</source>
+        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 24543)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -1,13 +1,13 @@
-Luckycoin Client v1.0.1
+Gamblecoin Client v1.0.1
 =======================
 
-Luckycoin - a fork of Litecoin version with random bonus blocks. Like Litecoin it uses scrypt as a proof of work scheme.
+Gamblecoin - a fork of Litecoin version with random bonus blocks. Like Litecoin it uses scrypt as a proof of work scheme.
 
    - 1 min block target
    - Difficulty retargets every 20 min with accelerated diff adjustment in the beginning
    - Initially 88 coins per block, halves every 2 months (100,000 blocks)
    - Total around 20 millions coins
-   - connection port is 9917, RPC-port 9918
+   - connection port is 24542, RPC-port 24543
 
    Random Super-blocks:
     For the 1st 50000 blocks (1st month)
@@ -21,12 +21,12 @@ Luckycoin - a fork of Litecoin version with random bonus blocks. Like Litecoin i
     - 0.01% chance 58 times the normal coins
 
 
-Official Luckycoin Website and Community Forum
+Official Gamblecoin Website and Community Forum
 ==================================
 
-Please visit the official Luckycoin website and community forum for more information.
-http://luckycoin.cc
-https://cryptocointalk.com/forum/188-luckycoin-lky/
+Please visit the official Gamblecoin website and community forum for more information.
+http://gamblecoin.cc
+https://cryptocointalk.com/forum/188-gamblecoin-lky/
 
 
 Development process

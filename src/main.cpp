@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
 // Copyright (c) 2011-2012 Litecoin Developers
-// Copyright (c) 2013 Luckycoin Developers
+// Copyright (c) 2018 The Gamblecoin Developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -33,8 +33,8 @@ CTxMemPool mempool;
 unsigned int nTransactionsUpdated = 0;
 
 map<uint256, CBlockIndex*> mapBlockIndex;
-uint256 hashGenesisBlock("0x9b7bce58999062b63bfb18586813c42491fa32f4591d8d3043cb4fa9e551541b");
-static CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // Luckycoin: starting difficulty is 1 / 2^12
+uint256 hashGenesisBlock("0xb67f1fd168b2e3931a2f13887de3a0e45283eb9ca65dac622bb19ae033bbcdf7");
+static CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // Gamblecoin: starting difficulty is 1 / 2^12
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
 CBigNum bnBestChainWork = 0;
@@ -54,7 +54,7 @@ map<uint256, map<uint256, CDataStream*> > mapOrphanTransactionsByPrev;
 // Constant stuff for coinbase transactions we create:
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "Luckycoin Signed Message:\n";
+const string strMessageMagic = "Gamblecoin Signed Message:\n";
 
 double dHashesPerSec;
 int64 nHPSTimerStart;
@@ -839,9 +839,12 @@ int static generateMTRandom(unsigned int s, int range)
 
 int64 static GetBlockValue(int nHeight, int64 nFees, uint256 prevHash)
 {
-    int64 nSubsidy = 88 * COIN;
-
-    if(nHeight < 50000)   
+    int64 nSubsidy = 950 * COIN;
+    if(nHeight == 2)  
+    {
+        nSubsidy = 2000000 * COIN;
+}
+    else if(nHeight < 500000)   
     {
         std::string cseed_str = prevHash.ToString().substr(8,7);
 		const char* cseed = cseed_str.c_str();
@@ -858,8 +861,8 @@ int64 static GetBlockValue(int nHeight, int64 nFees, uint256 prevHash)
     }
     else
     {
-        // Subsidy is cut in half every 100,000 blocks, which will occur approximately every 2 months
-        nSubsidy >>= (nHeight / 100000); // Luckycoin: 100K blocks in ~2 months
+        // Subsidy is cut in half every 100,000 blocks, which will occur approximately every 10 months
+        nSubsidy >>= (nHeight / 500000); // Gamblecoin: 100K blocks in ~2 months
         
         std::string cseed_str = prevHash.ToString().substr(8,7);
 		const char* cseed = cseed_str.c_str();
@@ -878,8 +881,8 @@ int64 static GetBlockValue(int nHeight, int64 nFees, uint256 prevHash)
     return nSubsidy + nFees;
 }
 
-static const int64 nTargetTimespan = 20 * 60; // Luckycoin: every 20 minutes
-static const int64 nTargetSpacing = 60; // Luckycoin: 60 seconds
+static const int64 nTargetTimespan = 5 * 60; // Gamblecoin: every 5 minutes
+static const int64 nTargetSpacing = 60; // Gamblecoin: 60 seconds
 
 //
 // minimum amount of work that could possibly be required nTime after
@@ -910,7 +913,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 {
     unsigned int nProofOfWorkLimit = bnProofOfWorkLimit.GetCompact();
 
-    // Luckycoin difficulty adjustment protocol switch
+    // Gamblecoin difficulty adjustment protocol switch
     bool fNewDifficultyProtocol = (pindexLast->nHeight+1 >= 69360 || fTestNet);
 
     int64 nTargetTimespanCurrent = fNewDifficultyProtocol ? nTargetTimespan : (nTargetTimespan*12);
@@ -943,7 +946,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
         return pindexLast->nBits;
     }
 
-    // Luckycoin: This fixes an issue where a 51% attack can change difficulty at will.
+    // Gamblecoin: This fixes an issue where a 51% attack can change difficulty at will.
     // Go back the full period unless it's the first retarget after genesis. Code courtesy of Art Forz
     int blockstogoback = nInterval-1;
     if ((pindexLast->nHeight+1) != nInterval)
@@ -1236,7 +1239,7 @@ bool CTransaction::ConnectInputs(MapPrevTx inputs,
 {
     // Take over previous transactions' spent pointers
     // fBlock is true when this is called from AcceptBlock when a new best-block is added to the blockchain
-    // fMiner is true when called from the internal luckycoin miner
+    // fMiner is true when called from the internal gamblecoin miner
     // ... both are false when called from CTransaction::AcceptToMemoryPool
     if (!IsCoinBase())
     {
@@ -2015,7 +2018,7 @@ bool CheckDiskSpace(uint64 nAdditionalBytes)
         string strMessage = _("Warning: Disk space is low");
         strMiscWarning = strMessage;
         printf("*** %s\n", strMessage.c_str());
-        uiInterface.ThreadSafeMessageBox(strMessage, "Luckycoin", CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+        uiInterface.ThreadSafeMessageBox(strMessage, "Gamblecoin", CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
         StartShutdown();
         return false;
     }
@@ -2071,7 +2074,7 @@ bool LoadBlockIndex(bool fAllowNew)
         pchMessageStart[1] = 0xc1;
         pchMessageStart[2] = 0xb7;
         pchMessageStart[3] = 0xdc;
-        hashGenesisBlock = uint256("0x5d2fc8d1cb81c089c8dc7a71d755eb2589a7973471598dc513a599e3f0662eaf");
+        hashGenesisBlock = uint256("0xb67f1fd168b2e3931a2f13887de3a0e45283eb9ca65dac622bb19ae033bbcdf7");
     }
 
     //
@@ -2101,37 +2104,36 @@ bool LoadBlockIndex(bool fAllowNew)
 		//   vMerkleTree: 6f80efd038 
 
         // Genesis block
-        const char* pszTimestamp = "May 22, 2013, 12:16 a.m. EDT: Japan\x92s Nikkei Stock Average JP:NIK +1.77%, which ended at their highest level in more than five years in each of the last three trading sessions, climbed a further 1.2% Wednesday";
+        const char* pszTimestamp = "BBC News 14/02/2018 European Union growth rate at 10-year high";
         CTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CBigNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
         txNew.vout[0].nValue = 88 * COIN;
-        txNew.vout[0].scriptPubKey = CScript() << ParseHex("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9") << OP_CHECKSIG;
+        txNew.vout[0].scriptPubKey = CScript() << ParseHex("8a3f37ede631205809fbf08b7e1b024695d4a9ca8a823374e82c76a9860315eb413651520c4eb86eb021b3a3707c08129f7ad444a70d8c43baaf6874c1cdcf78f9") << OP_CHECKSIG;
         CBlock block;
         block.vtx.push_back(txNew);
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1369199888;
+        block.nTime    = 1518641605;
         block.nBits    = 0x1e0ffff0;
-        block.nNonce   = 11288888;
+        block.nNonce   = 1288802;
 
         if (fTestNet)
         {
-            block.nTime    = 1361718171;
-            block.nNonce   = 108788888;
+            block.nTime    = 1518641606;
+            block.nNonce   = 0;
         }
 
         //// debug print
         printf("%s\n", block.GetHash().ToString().c_str());
         printf("%s\n", hashGenesisBlock.ToString().c_str());
-        printf("%s\n", block.hashMerkleRoot.ToString().c_str());
-        
-        assert(block.hashMerkleRoot == uint256("0x6f80efd038566e1e3eab3e1d38131604d06481e77f2462235c6a9a94b1f8abf9"));
+        printf("%s\n", block.hashMerkleRoot.ToString().c_str());       
+        assert(block.hashMerkleRoot == uint256("0xb5a8faf43287e73a3171dc867d7145f50892d306ac27e96b064cad5d5019ea1c"));
 
         // If genesis block hash does not match, then generate new genesis hash.
-        if (false && block.GetHash() != hashGenesisBlock)
+        if (true && block.GetHash() != hashGenesisBlock)
         {
             printf("Searching for genesis block...\n");
             // This will figure out a valid hash and Nonce if you're
@@ -2496,7 +2498,7 @@ bool static AlreadyHave(CTxDB& txdb, const CInv& inv)
 // The message start string is designed to be unlikely to occur in normal data.
 // The characters are rarely used upper ascii, not valid as UTF-8, and produce
 // a large 4-byte int at any alignment.
-unsigned char pchMessageStart[4] = { 0xfb, 0xc0, 0xb6, 0xdb }; // Luckycoin: increase each by adding 2 to bitcoin's value.
+unsigned char pchMessageStart[4] = { 0xfb, 0xc0, 0xb6, 0xdb }; // Gamblecoin: increase each by adding 2 to bitcoin's value.
 
 
 bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
@@ -2553,8 +2555,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
             SeenLocal(addrMe);
         }
 
-        // Disconnect if not /LKY:
-        if (pfrom->strSubVer.empty() || pfrom->strSubVer.find("/LKY:") == string::npos)
+        // Disconnect if not /GCA:
+        if (pfrom->strSubVer.empty() || pfrom->strSubVer.find("/GCA:") == string::npos)
         {
             printf("partner %s using wrong subver %s; disconnecting\n", pfrom->addr.ToString().c_str(), pfrom->strSubVer.c_str());
             pfrom->fDisconnect = true;
@@ -3419,7 +3421,7 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// LuckycoinMiner
+// GamblecoinMiner
 //
 
 int static FormatHashBlocks(void* pbuffer, unsigned int len)
@@ -3623,7 +3625,7 @@ CBlock* CreateNewBlock(CReserveKey& reservekey)
                 continue;
 
             // Transaction fee required depends on block size
-            // Luckycoind: Reduce the exempted free transactions to 500 bytes (from Bitcoin's 3000 bytes)
+            // Gamblecoind: Reduce the exempted free transactions to 500 bytes (from Bitcoin's 3000 bytes)
             bool fAllowFree = (nBlockSize + nTxSize < 1500 || CTransaction::AllowFree(dPriority));
             int64 nMinFee = tx.GetMinFee(nBlockSize, fAllowFree, GMF_BLOCK);
 
@@ -3761,7 +3763,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
         return false;
 
     //// debug print
-    printf("LuckycoinMiner:\n");
+    printf("GamblecoinMiner:\n");
     printf("proof-of-work found  \n  hash: %s  \ntarget: %s\n", hash.GetHex().c_str(), hashTarget.GetHex().c_str());
     pblock->print();
     printf("generated %s\n", FormatMoney(pblock->vtx[0].vout[0].nValue).c_str());
@@ -3770,7 +3772,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
     {
         LOCK(cs_main);
         if (pblock->hashPrevBlock != hashBestChain)
-            return error("LuckycoinMiner : generated block is stale");
+            return error("GamblecoinMiner : generated block is stale");
 
         // Remove key from key pool
         reservekey.KeepKey();
@@ -3783,21 +3785,21 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
 
         // Process this block the same as if we had received it from another node
         if (!ProcessBlock(NULL, pblock))
-            return error("LuckycoinMiner : ProcessBlock, block not accepted");
+            return error("GamblecoinMiner : ProcessBlock, block not accepted");
     }
 
     return true;
 }
 
-void static ThreadLuckycoinMiner(void* parg);
+void static ThreadGamblecoinMiner(void* parg);
 
 static bool fGenerateBitcoins = false;
 static bool fLimitProcessors = false;
 static int nLimitProcessors = -1;
 
-void static LuckycoinMiner(CWallet *pwallet)
+void static GamblecoinMiner(CWallet *pwallet)
 {
-    printf("LuckycoinMiner started\n");
+    printf("GamblecoinMiner started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
 
     // Make this thread recognisable as the mining thread
@@ -3832,7 +3834,7 @@ void static LuckycoinMiner(CWallet *pwallet)
             return;
         IncrementExtraNonce(pblock.get(), pindexPrev, nExtraNonce);
 
-        printf("Running LuckycoinMiner with %d transactions in block\n", pblock->vtx.size());
+        printf("Running GamblecoinMiner with %d transactions in block\n", pblock->vtx.size());
 
 
         //
@@ -3939,26 +3941,26 @@ void static LuckycoinMiner(CWallet *pwallet)
     }
 }
 
-void static ThreadLuckycoinMiner(void* parg)
+void static ThreadGamblecoinMiner(void* parg)
 {
     CWallet* pwallet = (CWallet*)parg;
     try
     {
         vnThreadsRunning[THREAD_MINER]++;
-        LuckycoinMiner(pwallet);
+        GamblecoinMiner(pwallet);
         vnThreadsRunning[THREAD_MINER]--;
     }
     catch (std::exception& e) {
         vnThreadsRunning[THREAD_MINER]--;
-        PrintException(&e, "ThreadLuckycoinMiner()");
+        PrintException(&e, "ThreadGamblecoinMiner()");
     } catch (...) {
         vnThreadsRunning[THREAD_MINER]--;
-        PrintException(NULL, "ThreadLuckycoinMiner()");
+        PrintException(NULL, "ThreadGamblecoinMiner()");
     }
     nHPSTimerStart = 0;
     if (vnThreadsRunning[THREAD_MINER] == 0)
         dHashesPerSec = 0;
-    printf("ThreadLuckycoinMiner exiting, %d threads remaining\n", vnThreadsRunning[THREAD_MINER]);
+    printf("ThreadGamblecoinMiner exiting, %d threads remaining\n", vnThreadsRunning[THREAD_MINER]);
 }
 
 
@@ -3979,10 +3981,10 @@ void GenerateBitcoins(bool fGenerate, CWallet* pwallet)
         if (fLimitProcessors && nProcessors > nLimitProcessors)
             nProcessors = nLimitProcessors;
         int nAddThreads = nProcessors - vnThreadsRunning[THREAD_MINER];
-        printf("Starting %d LuckycoinMiner threads\n", nAddThreads);
+        printf("Starting %d GamblecoinMiner threads\n", nAddThreads);
         for (int i = 0; i < nAddThreads; i++)
         {
-            if (!CreateThread(ThreadLuckycoinMiner, pwallet))
+            if (!CreateThread(ThreadGamblecoinMiner, pwallet))
                 printf("Error: CreateThread(ThreadBitcoinMiner) failed\n");
             Sleep(10);
         }
