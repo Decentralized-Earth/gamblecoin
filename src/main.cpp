@@ -33,7 +33,7 @@ CTxMemPool mempool;
 unsigned int nTransactionsUpdated = 0;
 
 map<uint256, CBlockIndex*> mapBlockIndex;
-uint256 hashGenesisBlock("0xb67f1fd168b2e3931a2f13887de3a0e45283eb9ca65dac622bb19ae033bbcdf7");
+uint256 hashGenesisBlock("0x");
 static CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // Gamblecoin: starting difficulty is 1 / 2^12
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
@@ -842,7 +842,7 @@ int64 static GetBlockValue(int nHeight, int64 nFees, uint256 prevHash)
     int64 nSubsidy = 950 * COIN;
     if(nHeight == 2)  
     {
-        nSubsidy = 2000000 * COIN;
+        nSubsidy = 14000000000 * COIN;
 }
     else if(nHeight < 500000)   
     {
@@ -852,12 +852,12 @@ int64 static GetBlockValue(int nHeight, int64 nFees, uint256 prevHash)
         
 		int rand = generateMTRandom(seed, 100000);
         
-		if(rand > 30000 && rand < 35001)		
-			nSubsidy = 188 * COIN;
-		else if(rand > 70000 && rand < 71001)	
-			nSubsidy = 588 * COIN;
-		else if(rand > 50000 && rand < 50011)	
-			nSubsidy = 5888 * COIN;
+		if(rand > 300000 && rand < 350001)		
+			nSubsidy = 950 * COIN;
+		else if(rand > 700000 && rand < 710001)	
+			nSubsidy = 9500 * COIN;
+		else if(rand > 500000 && rand < 500011)	
+			nSubsidy = 95000 * COIN;
     }
     else
     {
@@ -2074,7 +2074,7 @@ bool LoadBlockIndex(bool fAllowNew)
         pchMessageStart[1] = 0xc1;
         pchMessageStart[2] = 0xb7;
         pchMessageStart[3] = 0xdc;
-        hashGenesisBlock = uint256("0xb67f1fd168b2e3931a2f13887de3a0e45283eb9ca65dac622bb19ae033bbcdf7");
+        hashGenesisBlock = uint256("0x");
     }
 
     //
@@ -2109,7 +2109,7 @@ bool LoadBlockIndex(bool fAllowNew)
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CBigNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
-        txNew.vout[0].nValue = 88 * COIN;
+        txNew.vout[0].nValue = 950 * COIN;
         txNew.vout[0].scriptPubKey = CScript() << ParseHex("8a3f37ede631205809fbf08b7e1b024695d4a9ca8a823374e82c76a9860315eb413651520c4eb86eb021b3a3707c08129f7ad444a70d8c43baaf6874c1cdcf78f9") << OP_CHECKSIG;
         CBlock block;
         block.vtx.push_back(txNew);
@@ -2118,7 +2118,7 @@ bool LoadBlockIndex(bool fAllowNew)
         block.nVersion = 1;
         block.nTime    = 1518641605;
         block.nBits    = 0x1e0ffff0;
-        block.nNonce   = 1288802;
+        block.nNonce   = 0;
 
         if (fTestNet)
         {
@@ -2130,7 +2130,7 @@ bool LoadBlockIndex(bool fAllowNew)
         printf("%s\n", block.GetHash().ToString().c_str());
         printf("%s\n", hashGenesisBlock.ToString().c_str());
         printf("%s\n", block.hashMerkleRoot.ToString().c_str());       
-        assert(block.hashMerkleRoot == uint256("0xb5a8faf43287e73a3171dc867d7145f50892d306ac27e96b064cad5d5019ea1c"));
+        assert(block.hashMerkleRoot == uint256("0x"));
 
         // If genesis block hash does not match, then generate new genesis hash.
         if (true && block.GetHash() != hashGenesisBlock)
