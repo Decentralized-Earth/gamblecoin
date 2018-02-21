@@ -870,11 +870,11 @@ int64 static GetBlockValue(int nHeight, int64 nFees, uint256 prevHash)
         
 		int rand = generateMTRandom(seed, 100000);
         
-		if(rand > 30000 && rand < 35001)		
+		if(rand > 300000 && rand < 350001)		
 			nSubsidy *= 2;
-		else if(rand > 70000 && rand < 71001)	
+		else if(rand > 700000 && rand < 710001)	
 			nSubsidy *= 5;
-		else if(rand > 50000 && rand < 50011)	
+		else if(rand > 500000 && rand < 500011)	
 			nSubsidy *= 58;
     }
     

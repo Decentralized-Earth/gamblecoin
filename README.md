@@ -17,7 +17,7 @@ Random Super-blocks for the 1st 500000 blocks (10 months)
     - 0.01% chances 95000 GCA/block (so expect 50 such blocks)
 
 
-After 50000 blocks
+After 500000 blocks
 
     - 5% chances 2 times the current GCA reward (i.e. if current is 475 GCA, you get 950 GCA)
     - 1% chances 5 times the current GCA reward
