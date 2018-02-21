@@ -1,4 +1,4 @@
-### Gamblecoin Client v1.0.0
+# Gamblecoin Blockchain
 
 Gamblecoin - a fork of Litecoin version with random bonus blocks. Like Litecoin it uses scrypt as a proof of work scheme.
 
@@ -8,7 +8,7 @@ Gamblecoin - a fork of Litecoin version with random bonus blocks. Like Litecoin 
    - Total around 21 billion coins
    - connection port is 24542, RPC-port 24543
 
-   Random Super-blocks:
+   Random Super-blocks
     For the 1st 500000 blocks (10 months)
     - 5% chances 950 GCA/block
     - 1% chances 9500 GCA/block
