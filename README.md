@@ -1,6 +1,6 @@
 # Gamblecoin Blockchain
 
-Gamblecoin - a fork of Litecoin version with random bonus blocks. Like Litecoin it uses scrypt as a proof of work scheme.
+Gamblecoin - A new fork of Litecoin with random bonus blocks and super Blocks. Like Litecoin it uses scrypt as a proof of work scheme.
 
    - 1 min block target
    - Difficulty retargets every 5 min with accelerated diff adjustment in the beginning
@@ -8,13 +8,15 @@ Gamblecoin - a fork of Litecoin version with random bonus blocks. Like Litecoin 
    - Total around 21 billion coins
    - connection port is 24542, RPC-port 24543
 
-   Random Super-blocks
+
+Random Super-blocks
     For the 1st 500000 blocks (10 months)
     - 5% chances 950 GCA/block
     - 1% chances 9500 GCA/block
     - 0.01% chances 95000 GCA/block (so expect 50 such blocks)
 
-    After 50000 blocks
+
+After 50000 blocks
     - 5% chances 2 times the current GCA reward (i.e. if current is 475 GCA, you get 950 GCA)
     - 1% chances 5 times the current GCA reward
     - 0.01% chance 58 times the current GCA reward
