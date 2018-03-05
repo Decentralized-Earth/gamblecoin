@@ -839,45 +839,54 @@ int static generateMTRandom(unsigned int s, int range)
 
 int64 static GetBlockValue(int nHeight, int64 nFees, uint256 prevHash)
 {
-    int64 nSubsidy = 950 * COIN;
-    if(nHeight == 2)  
-    {
+   int64 nSubsidy = 950 * COIN;
+
+        if (nHeight == 2 ) {
         nSubsidy = 14000000000 * COIN;
-}
-    else if(nHeight < 500000)   
-    {
-        std::string cseed_str = prevHash.ToString().substr(8,7);
-		const char* cseed = cseed_str.c_str();
-		long seed = hex2long(cseed);
-        
-		int rand = generateMTRandom(seed, 100000);
-        
-		if(rand > 300000 && rand < 350001)		
-			nSubsidy = 950 * COIN;
-		else if(rand > 700000 && rand < 710001)	
-			nSubsidy = 9500 * COIN;
-		else if(rand > 500000 && rand < 500011)	
-			nSubsidy = 95000 * COIN;
+    } else {
+        int rand = generateMTRandom(nHeight, 1000);
+        if (nHeight < 500000) {
+            if(rand >= 990) {
+                nSubsidy = 100000 * COIN;
+            } else if (rand >= 940) {
+                nSubsidy = 10000 * COIN;
+            } else if (rand >= 840) {
+                nSubsidy = 5000 * COIN;
+            } else if (rand >= 700) {
+                nSubsidy = 2500 * COIN;
+            } else if (rand >= 500) {
+		nSubsidy = 1000 * COIN;
+	    } else if (rand <= 499) {
+		nSubsidy = 500 * COIN;
+	    }
+        } else if(nHeight < 1000000) {
+            if (rand >= 990) {
+                nSubsidy = 500000 * COIN;
+            } else if (rand >= 940) {
+                nSubsidy = 50000 * COIN;
+            } else if (rand >= 840) {
+                nSubsidy = 25000 * COIN;
+            } else if (rand >= 700) {
+                nSubsidy = 12500 * COIN;
+            } else if (rand >= 500) {
+                nSubsidy = 5000 * COIN;
+            } else if (rand <= 499) {
+                nSubsidy = 2500 * COIN;
+            }
+        } else if(nHeight < 2000000) {
+	    if (rand >= 990) {
+                nSubsidy = 50000 * COIN;
+            } else if (rand >= 940) {
+                nSubsidy = 5000 * COIN;
+            } else if (rand >= 840) {
+                nSubsidy = 2500 * COIN;
+            } else if (rand >= 500) {
+                nSubsidy = 1000 * COIN; 
+            } else if (rand <= 499) {
+                nSubsidy = 500 * COIN;
+            }
+        } 
     }
-    else
-    {
-        // Subsidy is cut in half every 100,000 blocks, which will occur approximately every 10 months
-        nSubsidy >>= (nHeight / 500000); // Gamblecoin: 100K blocks in ~2 months
-        
-        std::string cseed_str = prevHash.ToString().substr(8,7);
-		const char* cseed = cseed_str.c_str();
-		long seed = hex2long(cseed);
-        
-		int rand = generateMTRandom(seed, 100000);
-        
-		if(rand > 300000 && rand < 350001)		
-			nSubsidy *= 2;
-		else if(rand > 700000 && rand < 710001)	
-			nSubsidy *= 5;
-		else if(rand > 500000 && rand < 500011)	
-			nSubsidy *= 58;
-    }
-    
     return nSubsidy + nFees;
 }
 
